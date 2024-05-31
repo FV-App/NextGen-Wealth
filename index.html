@@ -90,22 +90,22 @@
     </div>
     <div class="row">
         <div class="col-xs-6 form-group">
+            <label for="purchasePrice">Purchase Price</label>
+            <input type="text" id="purchasePrice" class="form-control" placeholder="$0.00">
+        </div>
+        <div class="col-xs-6 form-group">
+            <label for="monthlyExpense">Monthly Expense</label>
+            <input type="text" id="monthlyExpense" class="form-control" placeholder="$0.00">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 form-group">
             <label for="yourAge">Your Age</label>
             <input type="number" id="yourAge" class="form-control" placeholder="0">
         </div>
         <div class="col-xs-6 form-group">
             <label for="retirementAge">Retirement Age</label>
             <input type="number" id="retirementAge" class="form-control" placeholder="0">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6 form-group">
-            <label for="purchasePrice">Purchase Price</label>
-            <input type="number" id="purchasePrice" class="form-control" placeholder="$0.00">
-        </div>
-        <div class="col-xs-6 form-group">
-            <label for="monthlyExpense">Monthly Expense</label>
-            <input type="number" id="monthlyExpense" class="form-control" placeholder="$0.00">
         </div>
     </div>
     <div class="row">
@@ -183,11 +183,11 @@ function createChart(labelsList, dataList, chartid) {
 }
 
 function calculateApp() {
-    var purchasePrice = parseFloat(document.querySelector('#purchasePrice').value);
+    var purchasePrice = parseFloat(document.querySelector('#purchasePrice').value.replace(/[^0-9.-]+/g,""));
     var yourAge = parseInt(document.querySelector('#yourAge').value);
     var retirementAge = parseInt(document.querySelector('#retirementAge').value);
     var investmentTime = retirementAge - yourAge;
-    var monthlyExpense = parseFloat(document.querySelector('#monthlyExpense').value) || 0;
+    var monthlyExpense = parseFloat(document.querySelector('#monthlyExpense').value.replace(/[^0-9.-]+/g,"")) || 0;
     var interestRate = 11.86;
 
     if (!isNaN(purchasePrice) && purchasePrice > 0 && !isNaN(investmentTime) && investmentTime > 0) {
@@ -256,25 +256,32 @@ clearApp.addEventListener('click', function(event) {
 });
 
 function formatCurrencyInput(input) {
-    function reformatValue() {
-        var value = parseFloat(input.value);
-        if (!isNaN(value)) {
-            input.value = value.toFixed(2);
-        }
-    }
-
     input.addEventListener('input', function() {
-        var value = this.value;
-        if (value.includes('.') && value.split('.')[1].length > 2) {
-            reformatValue();
+        var value = this.value.replace(/[^0-9.]/g, '');
+        if (value.includes('.')) {
+            var parts = value.split('.');
+            parts[1] = parts[1].slice(0, 2);
+            value = parts.join('.');
+        }
+        this.value = value;
+    });
+
+    input.addEventListener('blur', function() {
+        var value = parseFloat(this.value);
+        if (!isNaN(value)) {
+            this.value = value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        } else {
+            this.value = '';
         }
     });
 
-    input.addEventListener('blur', reformatValue);
+    input.addEventListener('focus', function() {
+        var value = this.value.replace(/[^0-9.-]+/g, '');
+        this.value = value;
+    });
 }
 
 window.onload = function() {
-    // Apply the function to the purchase price and monthly expense inputs
     formatCurrencyInput(document.getElementById('purchasePrice'));
     formatCurrencyInput(document.getElementById('monthlyExpense'));
 };
