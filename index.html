@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Future Value App</title>
+    <title>Future Value App</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.1/math.min.js"></script>
@@ -48,6 +48,27 @@
         }
         .form-control {
             margin-bottom: 10px;
+            position: relative;
+            padding-right: 25px;
+            padding-left: 25px;
+        }
+        .input-group {
+            position: relative;
+        }
+        .input-group-btn {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+        }
+        .input-group-btn-left {
+            left: 0;
+        }
+        .input-group-btn-right {
+            right: 0;
+        }
+        .input-group-btn .btn {
+            height: 100%;
+            border-radius: 0;
         }
         .btn {
             width: 100%;
@@ -104,13 +125,29 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-6 form-group">
+        <div class="col-xs-6 form-group input-group">
             <label for="yourAge">Your Age</label>
-            <input type="number" id="yourAge" class="form-control" placeholder="0">
+            <div class="input-group">
+                <div class="input-group-btn input-group-btn-left">
+                    <button class="btn btn-default" type="button" onclick="changeValue('yourAge', -1)">-</button>
+                </div>
+                <input type="number" id="yourAge" class="form-control" placeholder="0">
+                <div class="input-group-btn input-group-btn-right">
+                    <button class="btn btn-default" type="button" onclick="changeValue('yourAge', 1)">+</button>
+                </div>
+            </div>
         </div>
-        <div class="col-xs-6 form-group">
+        <div class="col-xs-6 form-group input-group">
             <label for="retirementAge">Retirement Age</label>
-            <input type="number" id="retirementAge" class="form-control" placeholder="0">
+            <div class="input-group">
+                <div class="input-group-btn input-group-btn-left">
+                    <button class="btn btn-default" type="button" onclick="changeValue('retirementAge', -1)">-</button>
+                </div>
+                <input type="number" id="retirementAge" class="form-control" placeholder="0">
+                <div class="input-group-btn input-group-btn-right">
+                    <button class="btn btn-default" type="button" onclick="changeValue('retirementAge', 1)">+</button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -222,7 +259,7 @@ function calculateApp() {
         <div id="results" style="display: block;">
             <div class="result result-spent" id="totalSpent">Total Spent: $${new Intl.NumberFormat().format(totalSpent.toFixed(2))}</div>
             <div class="result result-gain" id="potentialGain">Potential Gain: $${new Intl.NumberFormat().format(potentialGain.toFixed(2))}</div>
-            <div class="result result-total" id="totalFutureValue">Future Value if Invested: $${new Intl.NumberFormat().format(totalFutureValue.toFixed(2))}</div>
+            <div class="result result-total" id="totalFutureValue">Total Future Value at Retirement Age: $${new Intl.NumberFormat().format(totalFutureValue.toFixed(2))}</div>
         </div>`;
 
         var totalyears = [];
@@ -259,6 +296,14 @@ clearApp.addEventListener('click', function(event) {
         myChart = null;
     }
 });
+
+function changeValue(id, increment) {
+    var input = document.getElementById(id);
+    var value = parseInt(input.value) || 0;
+    value += increment;
+    if (value < 0) value = 0;
+    input.value = value;
+}
 
 function formatCurrencyInput(input) {
     input.addEventListener('input', function() {
