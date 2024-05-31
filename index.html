@@ -32,7 +32,7 @@
             max-width: 100%;
         }
         .app-title {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
             text-align: center;
             margin-bottom: 20px;
@@ -46,6 +46,10 @@
         .btn {
             width: 100%;
             margin-bottom: 10px;
+        }
+        .btn-calculate {
+            background-color: #046b43;
+            color: white;
         }
         .result {
             font-size: 18px;
@@ -70,7 +74,7 @@
 
 <div class="app-container">
     <img src="nextgen-wealth-main-cropped.png" alt="NextGen Wealth Logo" class="app-logo">
-    <h1 class="app-title">Future Value App</h1>
+    <h1 class="app-title">Invest In Your Future</h1>
     <div class="form-group">
         <div class="text-center">
             <label for="purchaseDescription">What are you purchasing?</label>
@@ -99,10 +103,10 @@
     </div>
     <div class="row">
         <div class="col-xs-6">
-            <button class="btn btn-primary" onclick="calculateApp()">Calculate</button>
+            <button class="btn btn-danger clearApp">Reset</button>
         </div>
         <div class="col-xs-6">
-            <button class="btn btn-danger clearApp">Reset</button>
+            <button class="btn btn-calculate" onclick="calculateApp()">Calculate</button>
         </div>
     </div>
 
