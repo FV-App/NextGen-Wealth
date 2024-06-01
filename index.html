@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Future Value App</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.1/math.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
@@ -86,8 +85,20 @@
             background-color: #355E3B;
             color: white;
         }
+        @media (max-width: 768px) {
+            .form-group {
+                margin-bottom: 10px;
+            }
+            .form-control {
+                margin-bottom: 5px;
+            }
+            .btn {
+                margin-bottom: 5px;
+            }
+        }
     </style>
-
+</head>
+<body>
 <div class="app-container">
     <img src="nextgen-wealth-main-cropped.png" alt="NextGen Wealth Logo" class="app-logo">
     <div class="tagline">Creating Wealth</div>
