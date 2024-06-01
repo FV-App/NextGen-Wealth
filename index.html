@@ -268,7 +268,7 @@ function calculateApp() {
 function calculateFutureValue(principal, years, interestRate, additionalContribution = 0) {
     const monthlyRate = interestRate / 100 / 12;
     const months = years * 12;
-    const futureValue = principal + (additionalContribution * ((Math.pow((1 + monthlyRate), months) - 1) / monthlyRate));
+    const futureValue = principal * Math.pow((1 + monthlyRate), months) + additionalContribution * ((Math.pow((1 + monthlyRate), months) - 1) / monthlyRate);
     return futureValue;
 }
 
