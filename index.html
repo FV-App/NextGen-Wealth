@@ -106,9 +106,15 @@
         }
         .input-group .form-control {
             width: 60px;
+            text-align: center;
         }
         .input-group-btn .btn {
             width: 25px;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .input-group {
+            width: 100%;
         }
     </style>
 
@@ -137,11 +143,11 @@
         <div class="flex-item input-group">
             <label for="yourAge">Your Age</label>
             <div class="input-group">
-                <div class="input-group-btn input-group-btn-left">
+                <div class="input-group-btn">
                     <button class="btn btn-default" type="button" onclick="changeValue('yourAge', -1)">-</button>
                 </div>
                 <input type="number" id="yourAge" class="form-control" placeholder="0">
-                <div class="input-group-btn input-group-btn-right">
+                <div class="input-group-btn">
                     <button class="btn btn-default" type="button" onclick="changeValue('yourAge', 1)">+</button>
                 </div>
             </div>
@@ -149,11 +155,11 @@
         <div class="flex-item input-group">
             <label for="retirementAge">Retirement Age</label>
             <div class="input-group">
-                <div class="input-group-btn input-group-btn-left">
+                <div class="input-group-btn">
                     <button class="btn btn-default" type="button" onclick="changeValue('retirementAge', -1)">-</button>
                 </div>
                 <input type="number" id="retirementAge" class="form-control" placeholder="0">
-                <div class="input-group-btn input-group-btn-right">
+                <div class="input-group-btn">
                     <button class="btn btn-default" type="button" onclick="changeValue('retirementAge', 1)">+</button>
                 </div>
             </div>
@@ -347,4 +353,5 @@ window.onload = function() {
 </script>
 </body>
 </html>
+
 
