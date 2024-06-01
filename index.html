@@ -217,8 +217,7 @@ function calculateApp() {
 
         if (!isNaN(monthlyExpense) && monthlyExpense > 0) {
             for (var i = 0; i < investmentTime; i++) {
-                var expenseTemp = monthlyExpense * 12;
-                totalSpent += expenseTemp;
+                totalSpent += monthlyExpense * 12;
             }
         }
 
