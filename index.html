@@ -322,4 +322,335 @@ window.onload = function() {
 </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Future Value App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.1/math.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="NextGen Wealth">
+    <meta name="application-name" content="NextGen Wealth">
+    <meta name="theme-color" content="#ffffff">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #d6dce2;
+            padding: 20px;
+        }
+        .app-container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: auto;
+        }
+        .app-logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 100%;
+        }
+        .app-title {
+            font-size: 16px;
+            font-weight: normal;
+            color: #046b43; /* Same green color as the logo */
+            text-align: center;
+            margin-bottom: 5px; /* Reduced space */
+        }
+        .tagline {
+            font-size: 16px;
+            font-weight: normal;
+            color: #046b43; /* Same green color as the logo */
+            text-align: center;
+            margin-bottom: 5px; /* Reduced space */
+        }
+        .separator {
+            width: 80%;
+            height: 2px;
+            background-color: #046b43; /* Same green color as the logo */
+            margin: 0 auto 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-control {
+            margin-bottom: 10px;
+        }
+        .btn {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .btn-calculate {
+            background-color: #046b43;
+            color: white;
+        }
+        .btn-calculate:focus {
+            color: white;
+            outline: none;
+            box-shadow: none;
+        }
+        .result {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .result-spent {
+            background-color: #764558;
+            color: white;
+        }
+        .result-growth {
+            background-color: #573341;
+            color: white;
+        }
+        .result-total {
+            background-color: #046b43;
+            color: white;
+            border: 2px solid #046b43;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 22.5px; /* Increased font size by 25% */
+        }
+        .appYears, .appTotalSpent, .appPotentialGrowth, .appFutureValue {
+            text-align: center;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <img src="nextgen-wealth-main-cropped.png" alt="NextGen Wealth Logo" class="app-logo">
+    <h1 class="app-title">Creating Generational Wealth</h1>
+    <div class="tagline">One Decision at a Time</div>
+    <div class="separator"></div>
+    <div class="form-group">
+        <div class="text-center">
+            <label for="purchaseDescription">What are you purchasing?</label>
+        </div>
+        <input type="text" id="appName" class="form-control">
+    </div>
+    <div class="row">
+        <div class="col-xs-6 form-group">
+            <label for="purchasePrice">Purchase Price</label>
+            <input type="text" id="purchasePrice" class="form-control" placeholder="$0.00">
+        </div>
+        <div class="col-xs-6 form-group">
+            <label for="monthlyExpense">Monthly Expense</label>
+            <input type="text" id="monthlyExpense" class="form-control" placeholder="$0.00">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 form-group">
+            <label for="yourAge">Your Age</label>
+            <input type="number" id="yourAge" class="form-control" placeholder="0">
+        </div>
+        <div class="col-xs-6 form-group">
+            <label for="retirementAge">Retirement Age</label>
+            <input type="number" id="retirementAge" class="form-control" placeholder="0">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <button class="btn btn-danger clearApp">Reset</button>
+        </div>
+        <div class="col-xs-6">
+            <button class="btn btn-calculate" onclick="calculateApp()">Calculate</button>
+        </div>
+    </div>
+
+    <div id="results">
+        <div class="futureAppContainer" style="display: none;">
+            <div id="resultFutureApp"></div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="col-xs-12 chartContainer" style="display: none;">
+            <canvas id="chartApp"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+var myChart = null;
+var config = {options:{}}; 
+
+function createChart(labelsList, dataList, chartid) {
+    var ctx = document.getElementById(chartid).getContext('2d');
+
+    config = {
+        type: 'line',
+        data: {
+            labels: labelsList,
+            datasets: [{
+                label: 'Growth Over Time',
+                data: dataList,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+                fill: "start"
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    ticks: {
+                        beginAtZero: false 
+                    },
+                    gridLines: {
+                        color: 'rgba(54, 162, 235, 1)',
+                        drawTicks: true  
+                    }
+                },
+                x: {
+                    ticks: {
+                        stepSize: 10,
+                        callback: function(value) {
+                            return value + 1;  
+                        }
+                    },
+                    gridLines: {
+                        color: 'rgba(54, 162, 235, 1)',
+                        drawTicks: true  
+                    }
+                }
+            }
+        }
+    };
+
+    if (myChart != null) {
+        myChart.destroy();
+    }
+    myChart = new Chart(ctx, config);
+}
+
+function calculateApp() {
+    var purchasePrice = parseFloat(document.querySelector('#purchasePrice').value.replace(/[^0-9.-]+/g,""));
+    var yourAge = parseInt(document.querySelector('#yourAge').value);
+    var retirementAge = parseInt(document.querySelector('#retirementAge').value);
+    var investmentTime = retirementAge - yourAge;
+    var monthlyExpense = parseFloat(document.querySelector('#monthlyExpense').value.replace(/[^0-9.-]+/g,"")) || 0;
+    var interestRate = 11.86;
+
+    if (!isNaN(purchasePrice) && purchasePrice > 0 && !isNaN(investmentTime) && investmentTime > 0) {
+        var totalFutureValue = calculateFutureValue(purchasePrice, investmentTime, interestRate, monthlyExpense);
+        var totalSpent = purchasePrice;
+
+        if (!isNaN(monthlyExpense) && monthlyExpense > 0) {
+            for (var i = 0; i < investmentTime; i++) {
+                totalSpent += monthlyExpense * 12;
+            }
+        }
+
+        var potentialGrowth = totalFutureValue - totalSpent;
+
+        document.querySelector('.futureAppContainer').style.display = 'block';
+        document.querySelector('.chartContainer').style.display = 'block';
+
+        var resultFutureApp = document.getElementById('resultFutureApp');
+        resultFutureApp.innerHTML = `
+        <div class="appYears">
+            <div class="text-center">
+                <label>Years of Investment: </label>
+                <span>${investmentTime} Years</span>
+            </div>
+        </div>
+        <div class="appTotalSpent">
+            <div class="text-center">
+                <label>Total Spent: </label>
+                <span>$${new Intl.NumberFormat().format(totalSpent.toFixed(2))}</span>
+            </div>
+        </div>
+        <div class="appPotentialGrowth">
+            <div class="text-center">
+                <label>Potential Growth: </label>
+                <span>$${new Intl.NumberFormat().format(potentialGrowth.toFixed(2))}</span>
+            </div>
+        </div>
+        <div class="appFutureValue result-total">
+            <div class="text-center">
+                <label>Future Value if Invested:</label>
+                <div>$${new Intl.NumberFormat().format(totalFutureValue.toFixed(2))}</div>
+            </div>
+        </div>`;
+
+        var totalyears = [];
+        var moneyChart = [];
+
+        for (var i = 1; i <= investmentTime; i++) {
+            totalyears.push('Year ' + i);
+            moneyChart.push(calculateFutureValue(purchasePrice, i, interestRate, monthlyExpense));
+        }        
+        createChart(totalyears, moneyChart, 'chartApp');
+    }
+}
+
+function calculateFutureValue(principal, years, interestRate, additionalContribution = 0) {
+    const monthlyRate = interestRate / 100 / 12;
+    const months = years * 12;
+    const futureValue = principal * Math.pow((1 + monthlyRate), months) + additionalContribution * ((Math.pow((1 + monthlyRate), months) - 1) / monthlyRate);
+    return futureValue;
+}
+
+var clearApp = document.querySelector('.clearApp');
+
+clearApp.addEventListener('click', function(event) {
+    document.querySelector('.futureAppContainer').style.display = 'none';
+    document.querySelector('.chartContainer').style.display = 'none';
+
+    document.getElementById('appName').value = '';
+    document.getElementById('yourAge').value = '';
+    document.getElementById('retirementAge').value = '';
+    document.getElementById('purchasePrice').value = '';
+    document.getElementById('monthlyExpense').value = '';
+    if (myChart != null) {
+        myChart.destroy();
+        myChart = null;
+    }
+});
+
+function formatCurrencyInput(input) {
+    input.addEventListener('input', function() {
+        var value = this.value.replace(/[^0-9.]/g, '');
+        if (value.includes('.')) {
+            var parts = value.split('.');
+            parts[1] = parts[1].slice(0, 2);
+            value = parts.join('.');
+        }
+        this.value = value;
+    });
+
+    input.addEventListener('blur', function() {
+        var value = parseFloat(this.value);
+        if (!isNaN(value)) {
+            this.value = value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        } else {
+            this.value = '';
+        }
+    });
+
+    input.addEventListener('focus', function() {
+        var value = this.value.replace(/[^0-9.-]+/g, '');
+        this.value = value;
+    });
+}
+
+window.onload = function() {
+    formatCurrencyInput(document.getElementById('purchasePrice'));
+    formatCurrencyInput(document.getElementById('monthlyExpense'));
+};
+</script>
+</body>
+</html>
 
