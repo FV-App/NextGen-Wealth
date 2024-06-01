@@ -104,6 +104,12 @@
         .flex-item:last-child {
             margin-right: 0;
         }
+        .input-group .form-control {
+            width: 60px;
+        }
+        .input-group-btn .btn {
+            width: 25px;
+        }
     </style>
 
 <div class="app-container">
@@ -134,7 +140,7 @@
                 <div class="input-group-btn input-group-btn-left">
                     <button class="btn btn-default" type="button" onclick="changeValue('yourAge', -1)">-</button>
                 </div>
-                <input type="number" id="yourAge" class="form-control" placeholder="0" style="min-width: 0; width: 80px;">
+                <input type="number" id="yourAge" class="form-control" placeholder="0">
                 <div class="input-group-btn input-group-btn-right">
                     <button class="btn btn-default" type="button" onclick="changeValue('yourAge', 1)">+</button>
                 </div>
@@ -146,7 +152,7 @@
                 <div class="input-group-btn input-group-btn-left">
                     <button class="btn btn-default" type="button" onclick="changeValue('retirementAge', -1)">-</button>
                 </div>
-                <input type="number" id="retirementAge" class="form-control" placeholder="0" style="min-width: 0; width: 80px;">
+                <input type="number" id="retirementAge" class="form-control" placeholder="0">
                 <div class="input-group-btn input-group-btn-right">
                     <button class="btn btn-default" type="button" onclick="changeValue('retirementAge', 1)">+</button>
                 </div>
@@ -341,3 +347,4 @@ window.onload = function() {
 </script>
 </body>
 </html>
+
