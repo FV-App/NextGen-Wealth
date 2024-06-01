@@ -85,8 +85,11 @@
             color: white;
         }
         .result-total {
-            background-color: #355E3B;
+            background-color: #046b43;
             color: white;
+            border: 2px solid #046b43;
+            padding: 15px;
+            border-radius: 10px;
         }
         .appYears, .appTotalSpent, .appPotentialGrowth, .appFutureValue {
             text-align: center;
@@ -243,10 +246,10 @@ function calculateApp() {
                 <span>$${new Intl.NumberFormat().format(potentialGrowth.toFixed(2))}</span>
             </div>
         </div>
-        <div class="appFutureValue">
+        <div class="appFutureValue result-total">
             <div class="text-center">
-                <label>Future Value if Invested: </label>
-                <span>$${new Intl.NumberFormat().format(totalFutureValue.toFixed(2))}</span>
+                <label>Future Value if Invested:</label>
+                <div>$${new Intl.NumberFormat().format(totalFutureValue.toFixed(2))}</div>
             </div>
         </div>`;
 
