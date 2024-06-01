@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Future Value App</title>
+    <title>Future Value App</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.1/math.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
@@ -17,7 +18,7 @@
             padding: 20px;
         }
         .app-container {
-            max-width: 100%;
+            max-width: 400px;
             margin: auto;
             padding: 20px;
             background: white;
@@ -31,18 +32,10 @@
             max-width: 100%;
         }
         .app-title {
-            font-size: 18px;
-            font-weight: normal;
-            color: #046b43; /* Same green color as the logo */
+            font-size: 22px;
+            font-weight: bold;
             text-align: center;
-            margin-bottom: 5px;
-        }
-        .tagline {
-            font-size: 16px;
-            font-weight: normal;
-            color: #046b43; /* Same green color as the logo */
-            text-align: center;
-            margin-bottom: 5px; /* Reduced space */
+            margin-bottom: 10px;
         }
         .separator {
             width: 80%;
@@ -54,14 +47,11 @@
             margin-bottom: 15px;
         }
         .form-control {
-            font-size: 16px;
-            padding: 10px;
             margin-bottom: 10px;
         }
         .btn {
             width: 100%;
             margin-bottom: 10px;
-            font-size: 16px;
         }
         .btn-calculate {
             background-color: #046b43;
@@ -79,34 +69,23 @@
             padding: 10px;
             margin: 10px 0;
         }
-        .result-spent,
-        .result-growth {
+        .result-spent {
             background-color: #764558;
+            color: white;
+        }
+        .result-gain {
+            background-color: #573341;
             color: white;
         }
         .result-total {
             background-color: #355E3B;
             color: white;
         }
-        @media (max-width: 768px) {
-            .form-control {
-                font-size: 18px;
-                padding: 12px;
-                margin-bottom: 12px;
-            }
-            .btn {
-                font-size: 18px;
-                padding: 12px;
-                margin-bottom: 12px;
-            }
-        }
     </style>
-</head>
-<body>
+
 <div class="app-container">
     <img src="nextgen-wealth-main-cropped.png" alt="NextGen Wealth Logo" class="app-logo">
-    <div class="tagline">Creating Wealth</div>
-    <div class="tagline">One Decision at a Time</div>
+    <h1 class="app-title">Invest In Your Future</h1>
     <div class="separator"></div>
     <div class="form-group">
         <div class="text-center">
@@ -227,7 +206,7 @@ function calculateApp() {
             }
         }
 
-        var potentialGrowth = totalFutureValue - totalSpent;
+        var potentialGain = totalFutureValue - totalSpent;
 
         document.querySelector('.futureAppContainer').style.display = 'block';
         document.querySelector('.chartContainer').style.display = 'block';
@@ -242,8 +221,8 @@ function calculateApp() {
         </div>
         <div id="results" style="display: block;">
             <div class="result result-spent" id="totalSpent">Total Spent: $${new Intl.NumberFormat().format(totalSpent.toFixed(2))}</div>
-            <div class="result result-growth" id="potentialGrowth">Potential Growth: $${new Intl.NumberFormat().format(potentialGrowth.toFixed(2))}</div>
-            <div class="result result-total" id="totalFutureValue">Future Value if Invested: $${new Intl.NumberFormat().format(totalFutureValue.toFixed(2))}</div>
+            <div class="result result-gain" id="potentialGain">Potential Gain: $${new Intl.NumberFormat().format(potentialGain.toFixed(2))}</div>
+            <div class="result result-total" id="totalFutureValue">Total Future Value at Retirement Age: $${new Intl.NumberFormat().format(totalFutureValue.toFixed(2))}</div>
         </div>`;
 
         var totalyears = [];
