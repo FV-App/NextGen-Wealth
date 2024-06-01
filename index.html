@@ -38,6 +38,13 @@
             text-align: center;
             margin-bottom: 10px;
         }
+        .tagline {
+            font-size: 16px;
+            font-weight: normal;
+            color: #046b43; /* Same green color as the logo */
+            text-align: center;
+            margin-bottom: 10px;
+        }
         .separator {
             width: 80%;
             height: 2px;
@@ -49,6 +56,10 @@
         }
         .form-control {
             margin-bottom: 10px;
+        }
+        .input-group-btn .btn {
+            height: 100%;
+            border-radius: 0;
         }
         .btn {
             width: 100%;
@@ -86,7 +97,8 @@
 
 <div class="app-container">
     <img src="nextgen-wealth-main-cropped.png" alt="NextGen Wealth Logo" class="app-logo">
-    <h1 class="app-title">Creating Wealth One Decision at a Time</h1>
+    <div class="tagline">Creating Wealth</div>
+    <div class="tagline">One Decision at a Time</div>
     <div class="separator"></div>
     <div class="form-group">
         <div class="text-center">
@@ -111,7 +123,7 @@
                 <div class="input-group-btn input-group-btn-left">
                     <button class="btn btn-default" type="button" onclick="changeValue('yourAge', -1)">-</button>
                 </div>
-                <input type="number" id="yourAge" class="form-control" placeholder="0">
+                <input type="number" id="yourAge" class="form-control" placeholder="0" style="min-width: 0; width: 100px;">
                 <div class="input-group-btn input-group-btn-right">
                     <button class="btn btn-default" type="button" onclick="changeValue('yourAge', 1)">+</button>
                 </div>
@@ -123,7 +135,7 @@
                 <div class="input-group-btn input-group-btn-left">
                     <button class="btn btn-default" type="button" onclick="changeValue('retirementAge', -1)">-</button>
                 </div>
-                <input type="number" id="retirementAge" class="form-control" placeholder="0">
+                <input type="number" id="retirementAge" class="form-control" placeholder="0" style="min-width: 0; width: 100px;">
                 <div class="input-group-btn input-group-btn-right">
                     <button class="btn btn-default" type="button" onclick="changeValue('retirementAge', 1)">+</button>
                 </div>
