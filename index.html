@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="="width=device-width, initial-scale=1.0">
     <title>The Future Value App</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
@@ -57,10 +57,6 @@
         .form-control {
             margin-bottom: 10px;
         }
-        .input-group-btn .btn {
-            height: 100%;
-            border-radius: 0;
-        }
         .btn {
             width: 100%;
             margin-bottom: 10px;
@@ -81,34 +77,14 @@
             padding: 10px;
             margin: 10px 0;
         }
-        .result-spent {
+        .result-spent,
+        .result-growth {
             background-color: #764558;
-            color: white;
-        }
-        .result-gain {
-            background-color: #573341;
             color: white;
         }
         .result-total {
             background-color: #355E3B;
             color: white;
-        }
-        .flex-container {
-            display: flex;
-            justify-content: space-between;
-        }
-        .flex-item {
-            flex: 1;
-            margin-right: 10px;
-        }
-        .flex-item:last-child {
-            margin-right: 0;
-        }
-        .input-group .form-control {
-            width: 100%; /* Ensures the input fields take full width */
-        }
-        .input-group {
-            width: 100%; /* Ensures the input groups take full width */
         }
     </style>
 
@@ -236,7 +212,7 @@ function calculateApp() {
             }
         }
 
-        var potentialGain = totalFutureValue - totalSpent;
+        var potentialGrowth = totalFutureValue - totalSpent;
 
         document.querySelector('.futureAppContainer').style.display = 'block';
         document.querySelector('.chartContainer').style.display = 'block';
@@ -251,7 +227,7 @@ function calculateApp() {
         </div>
         <div id="results" style="display: block;">
             <div class="result result-spent" id="totalSpent">Total Spent: $${new Intl.NumberFormat().format(totalSpent.toFixed(2))}</div>
-            <div class="result result-gain" id="potentialGrowth">Potential Growth: $${new Intl.NumberFormat().format(potentialGain.toFixed(2))}</div>
+            <div class="result result-growth" id="potentialGrowth">Potential Growth: $${new Intl.NumberFormat().format(potentialGrowth.toFixed(2))}</div>
             <div class="result result-total" id="totalFutureValue">Future Value if Invested: $${new Intl.NumberFormat().format(totalFutureValue.toFixed(2))}</div>
         </div>`;
 
@@ -323,4 +299,3 @@ window.onload = function() {
 </script>
 </body>
 </html>
-
