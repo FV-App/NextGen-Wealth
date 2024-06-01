@@ -80,13 +80,17 @@
             background-color: #764558;
             color: white;
         }
-        .result-gain {
+        .result-growth {
             background-color: #573341;
             color: white;
         }
         .result-total {
             background-color: #355E3B;
             color: white;
+        }
+        .appYears, .appTotalSpent, .appPotentialGrowth, .appFutureValue {
+            text-align: center;
+            margin: 10px 0;
         }
     </style>
 
@@ -214,7 +218,7 @@ function calculateApp() {
             }
         }
 
-        var potentialGain = totalFutureValue - totalSpent;
+        var potentialGrowth = totalFutureValue - totalSpent;
 
         document.querySelector('.futureAppContainer').style.display = 'block';
         document.querySelector('.chartContainer').style.display = 'block';
@@ -227,10 +231,23 @@ function calculateApp() {
                 <span>${investmentTime} Years</span>
             </div>
         </div>
-        <div id="results" style="display: block;">
-            <div class="result result-spent" id="totalSpent">Total Spent: $${new Intl.NumberFormat().format(totalSpent.toFixed(2))}</div>
-            <div class="result result-gain" id="potentialGain">Potential Gain: $${new Intl.NumberFormat().format(potentialGain.toFixed(2))}</div>
-            <div class="result result-total" id="totalFutureValue">Total Future Value at Retirement Age: $${new Intl.NumberFormat().format(totalFutureValue.toFixed(2))}</div>
+        <div class="appTotalSpent">
+            <div class="text-center">
+                <label>Total Spent: </label>
+                <span>$${new Intl.NumberFormat().format(totalSpent.toFixed(2))}</span>
+            </div>
+        </div>
+        <div class="appPotentialGrowth">
+            <div class="text-center">
+                <label>Potential Growth: </label>
+                <span>$${new Intl.NumberFormat().format(potentialGrowth.toFixed(2))}</span>
+            </div>
+        </div>
+        <div class="appFutureValue">
+            <div class="text-center">
+                <label>Future Value if Invested: </label>
+                <span>$${new Intl.NumberFormat().format(totalFutureValue.toFixed(2))}</span>
+            </div>
         </div>`;
 
         var totalyears = [];
