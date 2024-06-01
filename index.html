@@ -93,6 +93,17 @@
             background-color: #355E3B;
             color: white;
         }
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .flex-item {
+            flex: 1;
+            margin-right: 10px;
+        }
+        .flex-item:last-child {
+            margin-right: 0;
+        }
     </style>
 
 <div class="app-container">
@@ -116,26 +127,26 @@
             <input type="text" id="monthlyExpense" class="form-control" placeholder="$0.00">
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-6 form-group input-group">
+    <div class="form-group flex-container">
+        <div class="flex-item input-group">
             <label for="yourAge">Your Age</label>
             <div class="input-group">
                 <div class="input-group-btn input-group-btn-left">
                     <button class="btn btn-default" type="button" onclick="changeValue('yourAge', -1)">-</button>
                 </div>
-                <input type="number" id="yourAge" class="form-control" placeholder="0" style="min-width: 0; width: 100px;">
+                <input type="number" id="yourAge" class="form-control" placeholder="0" style="min-width: 0; width: 80px;">
                 <div class="input-group-btn input-group-btn-right">
                     <button class="btn btn-default" type="button" onclick="changeValue('yourAge', 1)">+</button>
                 </div>
             </div>
         </div>
-        <div class="col-xs-6 form-group input-group">
+        <div class="flex-item input-group">
             <label for="retirementAge">Retirement Age</label>
             <div class="input-group">
                 <div class="input-group-btn input-group-btn-left">
                     <button class="btn btn-default" type="button" onclick="changeValue('retirementAge', -1)">-</button>
                 </div>
-                <input type="number" id="retirementAge" class="form-control" placeholder="0" style="min-width: 0; width: 100px;">
+                <input type="number" id="retirementAge" class="form-control" placeholder="0" style="min-width: 0; width: 80px;">
                 <div class="input-group-btn input-group-btn-right">
                     <button class="btn btn-default" type="button" onclick="changeValue('retirementAge', 1)">+</button>
                 </div>
