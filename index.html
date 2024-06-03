@@ -92,11 +92,13 @@
             border-radius: 10px;
             font-size: 22.5px;
         }
-        .appYears, .appTotalSpent, .appGrowth, .appFutureValue {
+        .info-box {
             text-align: center;
             margin: 10px 0;
             border-radius: 10px;
             padding: 10px;
+            font-weight: bold;
+            font-size: 16px;
         }
         .appYears {
             background-color: #4CAF50;
@@ -117,6 +119,10 @@
             border-radius: 10px;
             padding: 10px;
             width: 100%;
+            height: auto;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
         }
         .appFutureValue {
             display: none;
@@ -188,25 +194,25 @@
         <div class="futureAppContainer" style="display: none;">
             <div class="row">
                 <div class="col-xs-6">
-                    <div class="appYears">
+                    <div class="info-box appYears">
                         <div>Years Invested</div>
                         <div id="yearsInvested">0 Years</div>
                     </div>
                 </div>
                 <div class="col-xs-6">
-                    <div class="appTotalSpent">
+                    <div class="info-box appTotalSpent">
                         <div>Total Spent</div>
                         <div id="totalSpent">$0.00</div>
                     </div>
                 </div>
                 <div class="col-xs-6">
-                    <div class="appGrowth">
+                    <div class="info-box appGrowth">
                         <div>Growth</div>
                         <div id="growth">$0.00</div>
                     </div>
                 </div>
                 <div class="col-xs-6">
-                    <button class="btn-about-results" onclick="showAboutResults()">About Results</button>
+                    <div class="info-box btn-about-results" onclick="showAboutResults()">About Results</div>
                 </div>
             </div>
         </div>
@@ -401,6 +407,3 @@ window.onload = function() {
 </script>
 </body>
 </html>
-
-
-
