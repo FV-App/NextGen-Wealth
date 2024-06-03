@@ -331,10 +331,10 @@ function calculateApp() {
         document.querySelector('.chartContainer').style.display = 'block';
         document.querySelector('.appFutureValue').style.display = 'block';
 
-        document.getElementById('futureValueDisplay').innerHTML = `$${new Intl.NumberFormat().format(totalFutureValue.toFixed(2))}`;
+        document.getElementById('futureValueDisplay').innerHTML = `$${new Intl.NumberFormat().format(totalFutureValue.toFixed(0))}`;
         document.getElementById('yearsInvested').innerHTML = `${investmentTime} Years`;
         document.getElementById('totalSpent').innerHTML = `$${new Intl.NumberFormat().format(totalSpent.toFixed(2))}`;
-        document.getElementById('growth').innerHTML = `$${new Intl.NumberFormat().format(potentialGrowth.toFixed(2))}`;
+        document.getElementById('growth').innerHTML = `$${new Intl.NumberFormat().format(potentialGrowth.toFixed(0))}`;
 
         var totalyears = [];
         var moneyChart = [];
