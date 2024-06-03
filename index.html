@@ -45,21 +45,21 @@
         .app-title {
             font-size: 16px;
             font-weight: normal;
-            color: #046b43; /* Same green color as the logo */
+            color: #046b43;
             text-align: center;
             margin-bottom: 10px;
         }
         .tagline {
             font-size: 16px;
             font-weight: normal;
-            color: #046b43; /* Same green color as the logo */
+            color: #046b43;
             text-align: center;
-            margin-bottom: 5px; /* Reduced space */
+            margin-bottom: 5px;
         }
         .separator {
             width: 80%;
             height: 2px;
-            background-color: #046b43; /* Same green color as the logo */
+            background-color: #046b43;
             margin: 0 auto 20px;
         }
         .form-group {
@@ -102,7 +102,7 @@
             border: 2px solid #046b43;
             padding: 15px;
             border-radius: 10px;
-            font-size: 22.5px; /* Increased font size by 25% */
+            font-size: 22.5px;
         }
         .appYears, .appTotalSpent, .appPotentialGrowth, .appFutureValue {
             text-align: center;
@@ -210,16 +210,21 @@ function createChart(labelsList, dataList, chartid) {
             labels: labelsList,
             datasets: [{
                 label: 'Growth Over Time',
-               Sure, let's start from scratch and make the changes as requested:
-
-1. "Purchase Price" on its own row below "What are you purchasing?"
-2. Replace "Monthly Expense" with "Recurring Expense?" with two radio buttons ("No" and "Yes").
-3. If "Yes" is selected, two new sections should appear:
-   - "How many times per month will you make this purchase?" with a number input.
-   - "Monthly Expense" calculated as "Purchase Price" multiplied by the number of times per month the purchase is made.
-4. Continue with the rest of the app calculations using "Purchase Price" and "Monthly Expense".
-
-Here is the modified HTML code:
+                data: dataList,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+                fill: "start"
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    ticks: {
+                        beginAtZero: false 
+                    },
+                    gridLines: {
+                        color: 'rgba(54, 162,Here is the corrected HTML code:
 
 ```html
 <!DOCTYPE html>
@@ -436,7 +441,31 @@ function createChart(labelsList, dataList, chartid) {
                 label: 'Growth Over Time',
                 data: dataList,
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54Sure, here is the updated HTML code to reflect the requested changes:
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+                fill: "start"
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    ticks: {
+                        beginAtZero: false 
+                    },
+                    gridLines: {
+                        color: 'rgba(54, 162, 235, 1)',
+                        drawTicks: true  
+                    }
+                },
+                x: {
+                    ticks: {
+                        stepSize: 10,
+                        callback: function(value) {
+                            return value + 1;  
+                        }
+                    },
+                    gridLines: {
+                        color: 'rgba(54, Thank you for your patience. Here is the corrected HTML code ensuring the functionality you need:
 
 ```html
 <!DOCTYPE html>
@@ -669,15 +698,7 @@ function createChart(labelsList, dataList, chartid) {
                         drawTicks: true  
                     }
                 },
-                x: {
-Here's the updated HTML code incorporating the requested changes:
-
-1. "Purchase Price" is on its own row below "What are you purchasing?"
-2. "Recurring Expense?" with two radio buttons ("No" and "Yes")
-3. If "Yes" is selected, two new sections appear:
-   - "How many times per month will you make this purchase?" with a number input
-   - "Monthly Expense" calculated as "Purchase Price" multiplied by the number of times per month the purchase is made
-4. Continue with the rest of the app calculations using "Purchase Price" and "Monthly Expense"
+Here is the corrected and concise HTML code, ensuring proper functionality and structure:
 
 ```html
 <!DOCTYPE html>
@@ -883,26 +904,20 @@ document.getElementById('purchaseFrequency').addEventListener('input', function(
     document.getElementById('monthlyExpense').value = monthlyExpense.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 });
 
-function createChart(labelsList, dataList, chartid) {
-    var ctx = document.getElementById(chartid).getContext('2d');
+function calculateApp() {
+    var purchasePrice = parseFloat(document.getElementById('purchasePrice').value.replace(/[^0-9.-]+/g,""));
+    var yourAge = parseInt(document.getElementById('yourAge').value);
+    var retirementAge = parseInt(document.getElementById('retirementAge').value);
+    var investmentTime = retirementAge - yourAge;
+    var monthlyExpense = parseFloat(document.getElementById('monthlyExpense').value.replace(/[^0-9.-]+/g,"")) || 0;
+    var interestRate = 11.86;
 
-    config = {
-        type: 'line',
-        data: {
-            labels: labelsList,
-            datasets: [{
-                label: 'Growth Over Time',
-                data: dataList,
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1Here is the updated HTML code reflecting the changes you requested:
+    if (!isNaN(purchasePrice) && purchasePrice > 0 && !isNaN(investmentTime) && investmentTime > 0) {
+        var totalFutureValue = calculateFutureValue(purchasePrice, investmentTime, interestRate, monthlyExpense);
+        var totalSpent = purchasePrice;
 
-1. "Purchase Price" on its own row below "What are you purchasing?"
-2. Replace "Monthly Expense" with "Recurring Expense?" with two radio buttons ("No" and "Yes").
-3. If "Yes" is selected, two new sections appear:
-   - "How many times per month will you make this purchase?" with a number input.
-   - "Monthly Expense" calculated as "Purchase Price" multiplied by the number of times per month the purchase is made.
-4. Continue with the rest of the app calculations using "Purchase Price" and "Monthly Expense".
+        if (!isNaN(monthlyExpense) && monthlyExpense > 0) {
+            for (var i = 0; i < investmentTime;Thank you for your patience. Here is the corrected and simplified HTML code to ensure proper functionality:
 
 ```html
 <!DOCTYPE html>
@@ -942,7 +957,6 @@ function createChart(labelsList, dataList, chartid) {
             background: white;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow: auto;
         }
         .app-logo {
             display: block;
@@ -952,21 +966,21 @@ function createChart(labelsList, dataList, chartid) {
         .app-title {
             font-size: 16px;
             font-weight: normal;
-            color: #046b43; /* Same green color as the logo */
+            color: #046b43;
             text-align: center;
             margin-bottom: 10px;
         }
         .tagline {
             font-size: 16px;
             font-weight: normal;
-            color: #046b43; /* Same green color as the logo */
+            color: #046b43;
             text-align: center;
-            margin-bottom: 5px; /* Reduced space */
+            margin-bottom: 5px;
         }
         .separator {
             width: 80%;
             height: 2px;
-            background-color: #046b43; /* Same green color as the logo */
+            background-color: #046b43;
             margin: 0 auto 20px;
         }
         .form-group {
@@ -995,21 +1009,13 @@ function createChart(labelsList, dataList, chartid) {
             padding: 10px;
             margin: 10px 0;
         }
-        .result-spent {
-            background-color: #764558;
-            color: white;
-        }
-        .result-growth {
-            background-color: #573341;
-            color: white;
-        }
         .result-total {
             background-color: #046b43;
             color: white;
             border: 2px solid #046b43;
             padding: 15px;
             border-radius: 10px;
-            font-size: 22.5px; /* Increased font size by 25% */
+            font-size: 22.5px;
         }
         .appYears, .appTotalSpent, .appPotentialGrowth, .appFutureValue {
             text-align: center;
@@ -1102,4 +1108,134 @@ document.querySelectorAll('input[name="recurringExpense"]').forEach((elem) => {
 });
 
 document.getElementById('purchaseFrequency').addEventListener('input', function() {
-    var purchasePrice = parseFloat(document.getElementById
+    var purchasePrice = parseFloat(document.getElementById('purchasePrice').value.replace(/[^0-9.-]+/g,""));
+    var purchaseFrequency = parseInt(document.getElementById('purchaseFrequency').value) || 0;
+    var monthlyExpense = purchasePrice * purchaseFrequency;
+    document.getElementById('monthlyExpense').value = monthlyExpense.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+});
+
+function calculateApp() {
+    var purchasePrice = parseFloat(document.getElementById('purchasePrice').value.replace(/[^0-9.-]+/g,""));
+    var yourAge = parseInt(document.getElementById('yourAge').value);
+    var retirementAge = parseInt(document.getElementById('retirementAge').value);
+    var investmentTime = retirementAge - yourAge;
+    var monthlyExpense = parseFloat(document.getElementById('monthlyExpense').value.replace(/[^0-9.-]+/g,"")) || 0;
+    var interestRate = 11.86;
+
+    if (!isNaN(purchasePrice) && purchasePrice > 0 && !isNaN(investmentTime) && investmentTime > 0) {
+        var totalFutureValue = calculateFutureValue(purchasePrice, investmentTime, interestRate, monthlyExpense);
+        var totalSpent = purchasePrice;
+
+        if (!isNaN(monthlyExpense) && monthlyExpense > 0) {
+            for (var i = 0; i < investmentTime; i++) {
+                totalSpent += monthlyExpense * 12;
+            }
+        }
+
+        var potentialGrowth = totalFutureValue - totalSpent;
+
+        document.querySelector('.futureAppContainer').style.display = 'Here is the corrected and simplified HTML code ensuring proper functionality:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextGen Wealth</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.1/math.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+
+    <!-- Favicon Links -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="NextGen Wealth">
+    <meta name="application-name" content="NextGen Wealth">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #d6dce2;
+            padding: 20px;
+        }
+        .app-container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .app-logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 100%;
+        }
+        .app-title {
+            font-size: 16px;
+            font-weight: normal;
+            color: #046b43;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .tagline {
+            font-size: 16px;
+            font-weight: normal;
+            color: #046b43;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .separator {
+            width: 80%;
+            height: 2px;
+            background-color: #046b43;
+            margin: 0 auto 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-control {
+            margin-bottom: 10px;
+        }
+        .btn {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .btn-calculate {
+            background-color: #046b43;
+            color: white;
+        }
+        .btn-calculate:focus {
+            color: white;
+            outline: none;
+            box-shadow: none;
+        }
+        .result {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .result-total {
+            background-color: #046b43;
+            color: white;
+            border: 2px solid #046b43;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 22.5px;
+        }
+        .appYears, .appTotalSpent, .appPotentialGrowth, .appFutureValue {
+            text-align: center;
+            margin: 10px 0;
+        }
+    </
