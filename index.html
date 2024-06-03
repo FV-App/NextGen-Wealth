@@ -123,14 +123,18 @@
             </div>
         </div>
     </div>
-    <div class="row recurring-options" style="display: none;">
-        <div class="col-xs-6 form-group">
-            <label for="timesPerMonth">How many times per month will you make this purchase?</label>
-            <input type="number" id="timesPerMonth" class="form-control" placeholder="0">
-        </div>
-        <div class="col-xs-6 form-group">
-            <label for="monthlyExpense">Monthly Expense</label>
-            <input type="text" id="monthlyExpense" class="form-control" placeholder="$0.00" readonly>
+    <div class="form-group recurring-options" style="display: none;">
+        <label for="timesPerMonth">How many times per month will you make this purchase?</label>
+        <input type="number" id="timesPerMonth" class="form-control" placeholder="0">
+    </div>
+    <div class="form-group recurring-options" style="display: none;">
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="monthlyExpense">Monthly Expense</label>
+            </div>
+            <div class="col-xs-6">
+                <input type="text" id="monthlyExpense" class="form-control" placeholder="$0.00" readonly>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -170,11 +174,15 @@ var config = { options: {} };
 
 document.querySelectorAll('input[name="recurringExpense"]').forEach(function(el) {
     el.addEventListener('change', function() {
-        var recurringOptions = document.querySelector('.recurring-options');
+        var recurringOptions = document.querySelectorAll('.recurring-options');
         if (this.value === 'yes') {
-            recurringOptions.style.display = 'flex';
+            recurringOptions.forEach(function(option) {
+                option.style.display = 'block';
+            });
         } else {
-            recurringOptions.style.display = 'none';
+            recurringOptions.forEach(function(option) {
+                option.style.display = 'none';
+            });
             document.querySelector('#monthlyExpense').value = '';
         }
     });
