@@ -93,8 +93,18 @@
             font-size: 22.5px;
         }
         .appYears, .appTotalSpent, .appPotentialGrowth, .appFutureValue {
-            text-align: center;
+            text-align: left;
             margin: 10px 0;
+        }
+        .btn-about-results {
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            line-height: 1.5;
+            background-color: #046b43;
+            color: white;
+            border: none;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -145,16 +155,42 @@
     </div>
     <div class="row">
         <div class="col-xs-6">
-            <button class="btn btn-danger clearApp">Reset</button>
+            <button class="btn btn-danger
+clearApp">Reset</button>
         </div>
         <div class="col-xs-6">
             <button class="btn btn-calculate" onclick="calculateApp()">Calculate</button>
         </div>
     </div>
 
+    <div class="appFutureValue result-total">
+        <div class="text-center">
+            <label>Future Value if Invested:</label>
+            <div id="futureValueDisplay">$0.00</div>
+        </div>
+    </div>
+
     <div id="results">
         <div class="futureAppContainer" style="display: none;">
-            <div id="resultFutureApp"></div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="appYears">
+                        <label>Years of Investment: </label>
+                        <span id="yearsInvested">0 Years</span>
+                    </div>
+                    <div class="appTotalSpent">
+                        <label>Total Spent: </label>
+                        <span id="totalSpent">$0.00</span>
+                    </div>
+                    <div class="appPotentialGrowth">
+                        <label>Potential Growth: </label>
+                        <span id="potentialGrowth">$0.00</span>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <button class="btn-about-results" onclick="showAboutResults()">About<br>Results</button>
+                </div>
+            </div>
         </div>
         <div class="clearfix"></div>
 
@@ -262,32 +298,10 @@ function calculateApp() {
         document.querySelector('.futureAppContainer').style.display = 'block';
         document.querySelector('.chartContainer').style.display = 'block';
 
-        var resultFutureApp = document.getElementById('resultFutureApp');
-        resultFutureApp.innerHTML = `
-        <div class="appYears">
-            <div class="text-center">
-                <label>Years of Investment: </label>
-                <span>${investmentTime} Years</span>
-            </div>
-        </div>
-        <div class="appTotalSpent">
-            <div class="text-center">
-                <label>Total Spent: </label>
-                <span>$${new Intl.NumberFormat().format(totalSpent.toFixed(2))}</span>
-            </div>
-        </div>
-        <div class="appPotentialGrowth">
-            <div class="text-center">
-                <label>Potential Growth: </label>
-                <span>$${new Intl.NumberFormat().format(potentialGrowth.toFixed(2))}</span>
-            </div>
-        </div>
-        <div class="appFutureValue result-total">
-            <div class="text-center">
-                <label>Future Value if Invested:</label>
-                <div>$${new Intl.NumberFormat().format(totalFutureValue.toFixed(2))}</div>
-            </div>
-        </div>`;
+        document.getElementById('futureValueDisplay').innerHTML = `$${new Intl.NumberFormat().format(totalFutureValue.toFixed(2))}`;
+        document.getElementById('yearsInvested').innerHTML = `${investmentTime} Years`;
+        document.getElementById('totalSpent').innerHTML = `$${new Intl.NumberFormat().format(totalSpent.toFixed(2))}`;
+        document.getElementById('potentialGrowth').innerHTML = `$${new Intl.NumberFormat().format(potentialGrowth.toFixed(2))}`;
 
         var totalyears = [];
         var moneyChart = [];
@@ -350,6 +364,10 @@ function formatCurrencyInput(input) {
     });
 }
 
+function showAboutResults() {
+    alert("Future Value is based on an investment made in an S&P 500 Index Fund using the 50-Year average return of the overall S&P 500, currently at 11.86%. Your actual returns may vary. Please consult a financial professional before investing.");
+}
+
 window.onload = function() {
     formatCurrencyInput(document.getElementById('purchasePrice'));
     formatCurrencyInput(document.getElementById('monthlyExpense'));
@@ -357,3 +375,4 @@ window.onload = function() {
 </script>
 </body>
 </html>
+
