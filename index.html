@@ -135,9 +135,6 @@
         .appFutureValue {
             display: none;
         }
-        .form-group label {
-            white-space: pre-wrap; /* Preserve whitespace for labels */
-        }
     </style>
 </head>
 <body>
@@ -154,11 +151,11 @@
     </div>
     <div class="row">
         <div class="col-xs-6 form-group">
-            <label for="purchasePrice">Purchase Price</label>
+            <label for="purchasePrice">Purchase<br>Price</label>
             <input type="text" id="purchasePrice" class="form-control" placeholder="$0.00">
         </div>
         <div class="col-xs-6 form-group">
-            <label for="recurringExpense">Recurring Expense?</label>
+            <label for="recurringExpense">Recurring<br>Expense?</label>
             <div>
                 <label class="radio-inline"><input type="radio" name="recurringExpense" value="no" checked>No</label>
                 <label class="radio-inline"><input type="radio" name="recurringExpense" value="yes">Yes</label>
@@ -167,11 +164,11 @@
     </div>
     <div class="row recurring-options" style="display: none;">
         <div class="col-xs-6 form-group">
-            <label for="timesPerMonth">Purchases per Month</label>
+            <label for="timesPerMonth">Purchases per<br>Month</label>
             <input type="number" id="timesPerMonth" class="form-control" placeholder="0">
         </div>
         <div class="col-xs-6 form-group">
-            <label for="monthlyExpense">Monthly Expense</label>
+            <label for="monthlyExpense">Monthly<br>Expense</label>
             <input type="text" id="monthlyExpense" class="form-control" placeholder="$0.00" readonly>
         </div>
     </div>
