@@ -164,12 +164,16 @@
     </div>
     <div class="row recurring-options" style="display: none;">
         <div class="col-xs-6 form-group">
+            <label for="recurringPrice">Recurring<br>Purchase Price</label>
+            <input type="text" id="recurringPrice" class="form-control" placeholder="$0.00">
+        </div>
+        <div class="col-xs-6 form-group">
             <label for="timesPerMonth">Purchases per<br>Month</label>
             <input type="number" id="timesPerMonth" class="form-control" placeholder="0">
         </div>
-        <div class="col-xs-6 form-group">
-            <label for="monthlyExpense">Monthly<br>Expense</label>
-            <input type="text" id="monthlyExpense" class="form-control" placeholder="$0.00" readonly>
+        <div class="col-xs-12 form-group">
+            <label for="totalRecurringMonthlyExpense">Total Recurring<br>Monthly Expense</label>
+            <input type="text" id="totalRecurringMonthlyExpense" class="form-control" placeholder="$0.00" readonly>
         </div>
     </div>
     <div class="row">
@@ -247,15 +251,21 @@ document.querySelectorAll('input[name="recurringExpense"]').forEach(function(el)
             recurringOptions.forEach(function(option) {
                 option.style.display = 'none';
             });
-            document.querySelector('#monthlyExpense').value = '';
+            document.querySelector('#totalRecurringMonthlyExpense').value = '';
         }
     });
 });
 
 document.querySelector('#timesPerMonth').addEventListener('input', function() {
-    var purchasePrice = parseFloat(document.querySelector('#purchasePrice').value.replace(/[^0-9.-]+/g,"")) || 0;
+    var recurringPrice = parseFloat(document.querySelector('#recurringPrice').value.replace(/[^0-9.-]+/g,"")) || 0;
     var timesPerMonth = parseInt(this.value) || 0;
-    document.querySelector('#monthlyExpense').value = (purchasePrice * timesPerMonth).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.querySelector('#totalRecurringMonthlyExpense').value = (recurringPrice * timesPerMonth).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+});
+
+document.querySelector('#recurringPrice').addEventListener('input', function() {
+    var recurringPrice = parseFloat(this.value.replace(/[^0-9.-]+/g,"")) || 0;
+    var timesPerMonth = parseInt(document.querySelector('#timesPerMonth').value) || 0;
+    document.querySelector('#totalRecurringMonthlyExpense').value = (recurringPrice * timesPerMonth).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 });
 
 function createChart(labelsList, dataList, chartid) {
@@ -312,16 +322,16 @@ function calculateApp() {
     var yourAge = parseInt(document.querySelector('#yourAge').value);
     var retirementAge = parseInt(document.querySelector('#retirementAge').value);
     var investmentTime = retirementAge - yourAge;
-    var monthlyExpense = parseFloat(document.querySelector('#monthlyExpense').value.replace(/[^0-9.-]+/g,"")) || 0;
+    var totalRecurringMonthlyExpense = parseFloat(document.querySelector('#totalRecurringMonthlyExpense').value.replace(/[^0-9.-]+/g,"")) || 0;
     var interestRate = 11.86;
 
     if (!isNaN(purchasePrice) && purchasePrice > 0 && !isNaN(investmentTime) && investmentTime > 0) {
-        var totalFutureValue = calculateFutureValue(purchasePrice, investmentTime, interestRate, monthlyExpense);
+        var totalFutureValue = calculateFutureValue(purchasePrice, investmentTime, interestRate, totalRecurringMonthlyExpense);
         var totalSpent = purchasePrice;
 
-        if (!isNaN(monthlyExpense) && monthlyExpense > 0) {
+        if (!isNaN(totalRecurringMonthlyExpense) && totalRecurringMonthlyExpense > 0) {
             for (var i = 0; i < investmentTime; i++) {
-                totalSpent += monthlyExpense * 12;
+                totalSpent += totalRecurringMonthlyExpense * 12;
             }
         }
 
@@ -341,7 +351,7 @@ function calculateApp() {
 
         for (var i = 1; i <= investmentTime; i++) {
             totalyears.push('Year ' + i);
-            moneyChart.push(calculateFutureValue(purchasePrice, i, interestRate, monthlyExpense));
+            moneyChart.push(calculateFutureValue(purchasePrice, i, interestRate, totalRecurringMonthlyExpense));
         }        
         createChart(totalyears, moneyChart, 'chartApp');
     }
@@ -365,7 +375,8 @@ clearApp.addEventListener('click', function(event) {
     document.getElementById('yourAge').value = '';
     document.getElementById('retirementAge').value = '';
     document.getElementById('purchasePrice').value = '';
-    document.getElementById('monthlyExpense').value = '';
+    document.getElementById('recurringPrice').value = '';
+    document.getElementById('totalRecurringMonthlyExpense').value = '';
     document.getElementById('timesPerMonth').value = '';
     document.querySelector('#timesPerMonth').placeholder = '0';
     document.querySelector('input[name="recurringExpense"][value="no"]').checked = true;
@@ -410,7 +421,7 @@ function showAboutResults() {
 
 window.onload = function() {
     formatCurrencyInput(document.getElementById('purchasePrice'));
-    formatCurrencyInput(document.getElementById('monthlyExpense'));
+    formatCurrencyInput(document.getElementById('recurringPrice'));
 };
 </script>
 </body>
