@@ -447,6 +447,7 @@ function formatCurrencyInput(input) {
 function handleFormSubmit(event) {
     event.preventDefault();
     calculateApp();
+    document.activeElement.blur(); // Hide keyboard on mobile
 }
 
 function showAboutResults() {
