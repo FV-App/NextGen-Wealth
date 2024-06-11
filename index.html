@@ -276,6 +276,9 @@ document.querySelectorAll('input[name="recurringExpense"]').forEach(function(el)
             recurringOptions.forEach(function(option) {
                 option.style.display = 'block';
             });
+            setTimeout(() => {
+                document.activeElement.blur(); // Prevent keyboard from hiding
+            }, 0);
         } else {
             recurringOptions.forEach(function(option) {
                 option.style.display = 'none';
