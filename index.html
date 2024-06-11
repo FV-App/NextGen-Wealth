@@ -147,57 +147,59 @@
     <div class="tagline">One Decision at a Time</div>
     <div class="separator"></div>
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#welcomeVideoModal">Welcome Video</button>
-    <div class="form-group">
-        <div>
-            <label for="purchaseDescription">What are you purchasing?</label>
-        </div>
-        <input type="text" id="appName" class="form-control" onkeydown="handleKeyDown(event)">
-    </div>
-    <div class="row">
-        <div class="col-xs-6 form-group">
-            <label for="purchasePrice">Purchase<br>Price</label>
-            <input type="text" id="purchasePrice" class="form-control" placeholder="$0.00" onkeydown="handleKeyDown(event)">
-        </div>
-        <div class="col-xs-6 form-group">
-            <label for="recurringExpense">Recurring<br>Expense?</label>
+    <form id="nextGenForm" onsubmit="handleFormSubmit(event)">
+        <div class="form-group">
             <div>
-                <label class="radio-inline"><input type="radio" name="recurringExpense" value="no" checked>No</label>
-                <label class="radio-inline"><input type="radio" name="recurringExpense" value="yes">Yes</label>
+                <label for="purchaseDescription">What are you purchasing?</label>
+            </div>
+            <input type="text" id="appName" class="form-control">
+        </div>
+        <div class="row">
+            <div class="col-xs-6 form-group">
+                <label for="purchasePrice">Purchase<br>Price</label>
+                <input type="text" id="purchasePrice" class="form-control" placeholder="$0.00">
+            </div>
+            <div class="col-xs-6 form-group">
+                <label for="recurringExpense">Recurring<br>Expense?</label>
+                <div>
+                    <label class="radio-inline"><input type="radio" name="recurringExpense" value="no" checked>No</label>
+                    <label class="radio-inline"><input type="radio" name="recurringExpense" value="yes">Yes</label>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row recurring-options" style="display: none;">
-        <div class="col-xs-6 form-group">
-            <label for="recurringPrice">Recurring<br>Purchase Price</label>
-            <input type="text" id="recurringPrice" class="form-control" placeholder="$0.00" onkeydown="handleKeyDown(event)">
+        <div class="row recurring-options" style="display: none;">
+            <div class="col-xs-6 form-group">
+                <label for="recurringPrice">Recurring<br>Purchase Price</label>
+                <input type="text" id="recurringPrice" class="form-control" placeholder="$0.00">
+            </div>
+            <div class="col-xs-6 form-group">
+                <label for="timesPerMonth">Purchases per<br>Month</label>
+                <input type="number" id="timesPerMonth" class="form-control" placeholder="0">
+            </div>
+            <div class="col-xs-12 form-group">
+                <label for="totalRecurringMonthlyExpense">Total Recurring Monthly Expense</label>
+                <input type="text" id="totalRecurringMonthlyExpense" class="form-control" placeholder="$0.00" readonly>
+            </div>
         </div>
-        <div class="col-xs-6 form-group">
-            <label for="timesPerMonth">Purchases per<br>Month</label>
-            <input type="number" id="timesPerMonth" class="form-control" placeholder="0" onkeydown="handleKeyDown(event)">
+        <div class="row">
+            <div class="col-xs-6 form-group">
+                <label for="yourAge">Your Age</label>
+                <input type="number" id="yourAge" class="form-control" placeholder="0">
+            </div>
+            <div class="col-xs-6 form-group">
+                <label for="retirementAge">Retirement Age</label>
+                <input type="number" id="retirementAge" class="form-control" placeholder="0">
+            </div>
         </div>
-        <div class="col-xs-12 form-group">
-            <label for="totalRecurringMonthlyExpense">Total Recurring Monthly Expense</label>
-            <input type="text" id="totalRecurringMonthlyExpense" class="form-control" placeholder="$0.00" readonly>
+        <div class="row">
+            <div class="col-xs-6">
+                <button type="button" class="btn btn-danger clearApp">Reset</button>
+            </div>
+            <div class="col-xs-6">
+                <button type="submit" class="btn btn-calculate">Calculate</button>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6 form-group">
-            <label for="yourAge">Your Age</label>
-            <input type="number" id="yourAge" class="form-control" placeholder="0" onkeydown="handleKeyDown(event)">
-        </div>
-        <div class="col-xs-6 form-group">
-            <label for="retirementAge">Retirement Age</label>
-            <input type="number" id="retirementAge" class="form-control" placeholder="0" onkeydown="handleKeyDown(event)">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <button class="btn btn-danger clearApp">Reset</button>
-        </div>
-        <div class="col-xs-6">
-            <button class="btn btn-calculate" onclick="calculateApp()">Calculate</button>
-        </div>
-    </div>
+    </form>
 
     <div class="appFutureValue result-total">
         <div class="text-center">
@@ -442,11 +444,9 @@ function formatCurrencyInput(input) {
     });
 }
 
-function handleKeyDown(event) {
-    if (event.key === "Enter" || event.key === "Go") {
-        event.preventDefault();
-        calculateApp();
-    }
+function handleFormSubmit(event) {
+    event.preventDefault();
+    calculateApp();
 }
 
 function showAboutResults() {
@@ -460,5 +460,3 @@ window.onload = function() {
 </script>
 </body>
 </html>
-
-
