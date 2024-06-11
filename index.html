@@ -135,6 +135,9 @@
         .appFutureValue {
             display: none;
         }
+        .form-group label {
+            white-space: nowrap; /* Preserve whitespace for labels */
+        }
     </style>
 </head>
 <body>
@@ -143,6 +146,7 @@
     <h1 class="app-title">Creating Generational Wealth</h1>
     <div class="tagline">One Decision at a Time</div>
     <div class="separator"></div>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#welcomeVideoModal">Welcome Video</button>
     <div class="form-group">
         <div>
             <label for="purchaseDescription">What are you purchasing?</label>
@@ -172,7 +176,7 @@
             <input type="number" id="timesPerMonth" class="form-control" placeholder="0">
         </div>
         <div class="col-xs-12 form-group">
-            <label for="totalRecurringMonthlyExpense">Total Recurring<br>Monthly Expense</label>
+            <label for="totalRecurringMonthlyExpense">Total Recurring Monthly Expense</label>
             <input type="text" id="totalRecurringMonthlyExpense" class="form-control" placeholder="$0.00" readonly>
         </div>
     </div>
@@ -234,6 +238,29 @@
             <canvas id="chartApp"></canvas>
         </div>
     </div>
+</div>
+
+<!-- Welcome Video Modal -->
+<div id="welcomeVideoModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Welcome Video</h4>
+      </div>
+      <div class="modal-body">
+        <div style="position: relative; overflow: hidden; aspect-ratio: 1920/1080">
+          <iframe src="https://share.synthesia.io/embeds/videos/314404d6-86bd-4878-8c43-21e40f1f6ef2" loading="lazy" title="Synthesia video player - NextGen Wealth Welcome Video" allowfullscreen allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <script>
@@ -426,3 +453,4 @@ window.onload = function() {
 </script>
 </body>
 </html>
+
