@@ -270,19 +270,21 @@ var myChart = null;
 var config = { options: {} };
 
 document.querySelectorAll('input[name="recurringExpense"]').forEach(function(el) {
-    el.addEventListener('change', function(event) {
+    el.addEventListener('change', function() {
         var recurringOptions = document.querySelectorAll('.recurring-options');
         if (this.value === 'yes') {
             recurringOptions.forEach(function(option) {
                 option.style.display = 'block';
             });
+            setTimeout(function() {
+                document.getElementById('recurringPrice').focus();
+            }, 300);
         } else {
             recurringOptions.forEach(function(option) {
                 option.style.display = 'none';
             });
             document.querySelector('#totalRecurringMonthlyExpense').value = '';
         }
-        event.preventDefault();
     });
 });
 
@@ -462,4 +464,5 @@ window.onload = function() {
 </script>
 </body>
 </html>
+
 
